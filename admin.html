@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        🛡 Admin Panel
+
+    </div>
+
+    <ul>
+
+        <li><a href="dashboard.html"><i class="fa fa-home"></i> Dashboard</a></li>
+
+        <li><a href="admin.html"><i class="fa fa-chart-line"></i> Admin Dashboard</a></li>
+
+        <li><a href="leaderboard.html"><i class="fa fa-trophy"></i> Leaderboard</a></li>
+
+        <li><a href="profile.html"><i class="fa fa-user"></i> Profile</a></li>
+
+        <li><a href="index.html"><i class="fa fa-right-from-bracket"></i> Logout</a></li>
+
+    </ul>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+    <h1>🛡 Waste Management Admin Dashboard</h1>
+
+    <p>Manage all waste reports submitted by users.</p>
+
+    <!-- Dashboard Cards -->
+
+    <div class="cards">
+
+        <div class="card reports">
+
+            <div class="icon">📋</div>
+
+            <h3>Total Reports</h3>
+
+            <h1 id="adminReports">0</h1>
+
+        </div>
+
+        <div class="card rewards">
+
+            <div class="icon">✅</div>
+
+            <h3>Approved</h3>
+
+            <h1 id="approvedReports">0</h1>
+
+        </div>
+
+        <div class="card streak">
+
+            <div class="icon">⏳</div>
+
+            <h3>Pending</h3>
+
+            <h1 id="pendingReports">0</h1>
+
+        </div>
+
+    </div>
+
+    <!-- Analytics Charts -->
+
+<div class="charts">
+
+    <div class="chart-card">
+
+        <h2>📊 Waste Type Distribution</h2>
+
+        <canvas id="wasteChart"></canvas>
+
+    </div>
+
+    <div class="chart-card">
+
+        <h2>📈 Monthly Reports</h2>
+
+        <canvas id="monthlyChart"></canvas>
+
+    </div>
+
+    <div class="chart-card">
+
+        <h2>📍 Top Locations</h2>
+
+        <canvas id="locationChart"></canvas>
+
+    </div>
+
+    <div class="chart-card">
+
+        <h2>🏆 Active Users</h2>
+
+        <canvas id="userChart"></canvas>
+
+    </div>
+
+    <div class="card">
+    <div class="icon">👥</div>
+    <h3>Total Users</h3>
+    <h1 id="totalUsers">0</h1>
+</div>
+
+<div class="chart-card">
+
+    <h2>🤖 AI Waste Prediction</h2>
+
+    <canvas id="predictionChart"></canvas>
+
+</div>
+
+<div class="prediction-box">
+
+    <h3>📈 Prediction Result</h3>
+
+    <p>
+        Current Month Reports :
+        <span id="currentReports">0</span>
+    </p>
+
+    <p>
+        Predicted Next Month :
+        <span id="predictedReports">0</span>
+    </p>
+
+    <p>
+        Prediction Accuracy :
+        <span id="predictionAccuracy">92%</span>
+    </p>
+
+</div>
+
+    
+
+    <!-- Reports Section -->
+     <div class="export-buttons">
+
+    <button id="exportExcel" class="excel-btn">
+        📊 Export Excel
+    </button>
+
+    <button id="exportPDF" class="pdf-btn">
+        📄 Export PDF
+    </button>
+
+</div>
+
+    <div class="report-section">
+
+        <h2>📋 All Waste Reports</h2>
+
+        <div class="admin-controls">
+
+            <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search by title or location">
+
+            <select id="statusFilter">
+
+                <option value="All">All Reports</option>
+
+                <option value="Pending">Pending</option>
+
+                <option value="Approved">Approved</option>
+
+            </select>
+
+        </div>
+
+        <div id="adminReportList" class="report-grid">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="admin.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+<div id="customModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2 id="modalTitle">Confirmation</h2>
+
+        <p id="modalMessage"></p>
+
+        <div class="modal-buttons">
+
+            <button id="modalCancel" class="cancel-btn">
+                Cancel
+            </button>
+
+            <button id="modalOk" class="ok-btn">
+                OK
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<div id="customModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2 id="modalTitle"></h2>
+
+        <p id="modalMessage"></p>
+
+        <div class="modal-buttons">
+
+            <button id="modalCancel" class="cancel-btn">
+                Cancel
+            </button>
+
+            <button id="modalOk" class="ok-btn">
+                OK
+            </button>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+
+</body>
+
+</html>
+

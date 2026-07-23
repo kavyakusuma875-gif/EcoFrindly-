@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Waste Report Map</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+#map{
+
+height:600px;
+width:100%;
+border-radius:15px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<h1>🗺 Waste Report Map</h1>
+
+<div id="map"></div>
+
+<br>
+
+<a href="dashboard.html">
+
+    <div class="map-legend">
+
+    <h3>🗺 Map Legend</h3>
+
+    <div class="legend-grid">
+
+        <div class="legend-item">
+            <span class="legend-color green"></span>
+            <span>Approved Report</span>
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color red"></span>
+            <span>Pending Report</span>
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color blue"></span>
+            <span>Plastic Waste</span>
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color brown"></span>
+            <span>Organic Waste</span>
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color orange"></span>
+            <span>E-Waste</span>
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color gray"></span>
+            <span>Other Waste</span>
+        </div>
+
+    </div>
+
+</div>
+
+<button>⬅ Back to Dashboard</button>
+
+</a>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="map.js"></script>
+
+</body>
+
+</html>

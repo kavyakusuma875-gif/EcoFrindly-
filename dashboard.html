@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EcoFriendly Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+🌱 EcoFriendly
+
+</div>
+
+<ul>
+
+<li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+
+<li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+
+<li><a href="leaderboard.html"><i class="fa-solid fa-trophy"></i> Leaderboard</a></li>
+
+<li><a href="challenges.html"><i class="fa-solid fa-leaf"></i> Challenges</a></li>
+
+<li><a href="map.html"><i class="fa-solid fa-location-dot"></i> Waste Map</a></li>
+
+<li><a href="admin.html"><i class="fa-solid fa-user-shield"></i> Admin</a></li>
+
+<li>
+
+<button id="darkModeToggle" class="dark-btn">
+
+🌙 Dark Mode
+
+</button>
+
+</li>
+
+<li>
+
+    
+<a href="history.html">
+📜 Detection History
+</a>
+</li>
+
+<li><a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+
+
+
+</ul>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+<div class="header">
+
+<div>
+
+<h1>🌿 Smart Waste Management</h1>
+
+<p>Welcome back! Help keep the environment clean.</p>
+
+</div>
+</div>
+
+<!-- Cards -->
+
+
+<div class="cards">
+
+    <div class="card">
+
+        <h3>Total Reports</h3>
+
+        <h1 id="totalReports">0</h1>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Reward Points</h3>
+
+        <h1 id="points">0</h1>
+
+        <div class="progress-section">
+
+            <h4>📈 Progress to Next Badge</h4>
+
+            <div class="progress-bar">
+
+                <div id="progressFill" class="progress-fill"></div>
+
+            </div>
+
+            <p id="progressText"></p>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Achievement</h3>
+
+        <h1 id="dashboardBadge">🌱 Eco Beginner</h1>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Daily Streak</h3>
+
+        <h1 id="streak">0 🔥</h1>
+
+    </div>
+
+</div>
+
+<div class="challenge-progress">
+
+    <h2>🏆 Challenge Progress</h2>
+
+    <div class="progress-bar">
+
+        <div id="challengeFill" class="progress-fill"></div>
+
+    </div>
+
+    <p id="challengeText">0 / 4 Completed</p>
+
+    <h3 id="challengeBadge">🌱 Eco Beginner</h3>
+
+</div>
+
+<!-- Report Form -->
+
+<div class="report-section">
+
+<h2>📝 Report Waste</h2>
+
+<form id="reportForm">
+
+<input
+type="text"
+id="title"
+placeholder="Waste Title"
+required>
+
+<input
+type="text"
+id="location"
+placeholder="Location"
+required>
+
+<textarea
+id="description"
+placeholder="Description"
+required></textarea>
+
+<input
+type="file"
+id="image"
+accept="image/*">
+
+<button type="submit">
+
+Submit Report
+
+</button>
+
+</form>
+
+</div>
+
+<!-- Charts -->
+
+<div class="charts">
+
+<div class="chart-card">
+
+<canvas id="statusChart"></canvas>
+
+</div>
+
+<div class="chart-card">
+
+<canvas id="locationChart"></canvas>
+
+</div>
+
+</div>
+
+
+
+<!-- Eco Tips -->
+
+<h2 style="margin-top:40px;color:#145a32;">
+
+♻ Waste Segregation Guide
+
+</h2>
+
+<div class="tips-grid">
+
+<div class="tip-card">
+
+<h3>♻ Plastic Waste</h3>
+
+<p>Clean plastic bottles and containers before recycling them.</p>
+
+</div>
+
+<div class="tip-card">
+
+<h3>🍌 Organic Waste</h3>
+
+<p>Use vegetable and fruit waste to prepare compost.</p>
+
+</div>
+
+<div class="tip-card">
+
+<h3>📄 Paper Waste</h3>
+
+<p>Recycle books, newspapers and cardboard.</p>
+
+</div>
+
+<div class="tip-card">
+
+<h3>🔋 E-Waste</h3>
+
+<p>Dispose of electronic waste only at authorised e-waste centres.</p>
+
+</div>
+
+</div>
+
+<div class="ai-card" id="aiCard" style="display:none;">
+
+    <h2>🤖 AI Waste Analysis</h2>
+
+    <p><b>♻ Waste Type:</b> <span id="aiWasteType"></span></p>
+
+    <p><b>🗑 Recommended Bin:</b> <span id="aiSuggestion"></span></p>
+
+    <p><b>📌 Status:</b> <span id="aiStatus">Pending</span></p>
+
+    <p><b>⭐ Reward:</b> +10 Points</p>
+
+</div>
+
+<button id="downloadCertificate" class="certificate-btn">
+🏆 Download Certificate
+</button>
+
+<div class="eco-score-card">
+
+    <h2>🌿 AI Eco Score</h2>
+
+    <h1 id="ecoScore">0</h1>
+
+    <div class="eco-progress">
+
+        <div id="ecoFill"></div>
+
+    </div>
+
+    <p id="ecoLevel">Eco Beginner</p>
+
+</div>
+
+<div class="tip-card">
+
+    <h2>💡 Today's Eco Tip</h2>
+
+    <p id="ecoTip"></p>
+
+    <button onclick="changeTip()">
+        🔄 Refresh Tip
+    </button>
+
+</div>
+
+<!-- My Reports -->
+
+<div class="report-section" style="margin-top:40px;">
+    <button id="downloadPDF" class="download-btn">
+📄 Download My Reports PDF
+</button>
+
+<h2>📋 My Reports</h2>
+
+<div id="reportList" class="report-grid"></div>
+
+</div>
+
+<div class="report-section" style="margin-top:40px;">
+
+    <div class="card notification-card">
+
+    <h3>🔔 Notifications</h3>
+
+    <div id="notificationList">
+
+        <p>Loading...</p>
+
+    </div>
+    </div>
+
+    <div class="card review-card">
+
+    <h3>⭐ Rate EcoFriendly+</h3>
+
+    <select id="rating">
+
+        <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+        <option value="4">⭐⭐⭐⭐ Very Good</option>
+        <option value="3">⭐⭐⭐ Good</option>
+        <option value="2">⭐⭐ Fair</option>
+        <option value="1">⭐ Poor</option>
+
+    </select>
+
+   
+
+    <textarea
+        id="feedback"
+        rows="4"
+        placeholder="Write your feedback here..."
+    ></textarea>
+
+    <button id="submitReview">
+
+        Submit Review
+
+    </button>
+
+</div>
+</div>
+
+
+<h2>📢 Recent Activities</h2>
+
+<ul id="activityList"></ul>
+
+</div>
+
+</div>
+<div id="notification" class="notification"></div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="dashboard.js"></script>
+
+</body>
+
+</html>
