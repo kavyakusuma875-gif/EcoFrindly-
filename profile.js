@@ -1,84 +1,62 @@
+async function loadProfile() {
 
-async function loadProfile(){
-
-    try{
+    try {
 
         const email = localStorage.getItem("email");
 
-        if(!email){
-
+        if (!email) {
             alert("Please login first.");
-
-            window.location.href = "index.html";
-
+            window.location.href = "login.html";
             return;
-
         }
 
         // Load User
         const res = await fetch(`https://ecofriendly-backend.onrender.com/api/auth/profile/${email}`);
 
+        if (!res.ok) {
+            throw new Error("Profile API failed");
+        }
+
         const user = await res.json();
 
         document.getElementById("userName").innerText = user.name;
-
         document.getElementById("userEmail").innerText = user.email;
-
         document.getElementById("userPoints").innerText = user.points || 0;
 
         // Load Reports
         const reportRes = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
-        const reportData = await reportRes.json();
+        let myReports = [];
 
-        const myReports = reportData.filter(report => report.email === email);
+        if (reportRes.ok) {
+            const reportData = await reportRes.json();
+            myReports = reportData.filter(report => report.email === email);
+        }
 
-        // Main Cards
         document.getElementById("userReports").innerText = myReports.length;
-
-        // Profile Statistics
         document.getElementById("profileReports").innerText = myReports.length;
-
         document.getElementById("profilePoints").innerText = user.points || 0;
 
-        // Badge
-        let badge = "";
+        let badge = "🌱 Eco Beginner";
 
-        if(user.points >= 200){
-
+        if (user.points >= 200)
             badge = "👑 Eco Legend";
-
-        }
-        else if(user.points >= 100){
-
+        else if (user.points >= 100)
             badge = "🥇 Eco Champion";
-
-        }
-        else if(user.points >= 50){
-
+        else if (user.points >= 50)
             badge = "🥈 Eco Warrior";
 
-        }
-        else{
-
-            badge = "🌱 Eco Beginner";
-
-        }
-
         document.getElementById("badge").innerText = badge;
+        
 
-        document.getElementById("profileBadge").innerText = badge;
-    }
+    } catch (error) {
 
-
-
-    catch(error){
-
-        console.log(error);
+        console.error(error);
 
         alert("Unable to load profile.");
 
     }
+
 }
 
 loadProfile();
