@@ -68,7 +68,7 @@ async function loadReports(){
 
     try{
 
-        const res = await fetch("http://localhost:5000/api/reports");
+        const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
         const reports = await res.json();
 

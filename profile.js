@@ -16,7 +16,7 @@ async function loadProfile(){
         }
 
         // Load User
-        const res = await fetch(`http://localhost:5000/api/auth/profile/${email}`);
+        const res = await fetch(`https://ecofriendly-backend.onrender.com/api/auth/profile/${email}`);
 
         const user = await res.json();
 
@@ -27,7 +27,7 @@ async function loadProfile(){
         document.getElementById("userPoints").innerText = user.points || 0;
 
         // Load Reports
-        const reportRes = await fetch("http://localhost:5000/api/reports");
+        const reportRes = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
         const reportData = await reportRes.json();
 
