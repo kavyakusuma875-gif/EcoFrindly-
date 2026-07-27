@@ -22,7 +22,7 @@ async function loadDashboard(){
 
     try{
 
-        const userRes = await fetch(`http://localhost:5000/api/auth/profile/${email}`);
+        const userRes = await fetch(`https://ecofriendly-backend.onrender.com/api/auth/profile/${email}`);
         const user = await userRes.json();
 
         const userName = document.getElementById("userName");
@@ -139,7 +139,7 @@ async function deleteReport(id){
 
     try{
 
-        await fetch(`http://localhost:5000/api/reports/${id}`,{
+        await fetch(`https://ecofriendly-backend.onrender.com/api/reports/${id}`,{
             method:"DELETE"
         });
 
@@ -183,7 +183,7 @@ document.getElementById("reportForm").addEventListener("submit", async (e) => {
     formData.append("latitude", position.coords.latitude);
     formData.append("longitude", position.coords.longitude);
 
-    const res = await fetch("http://localhost:5000/api/reports", {
+    const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports", {
 
         method: "POST",
 
@@ -212,7 +212,7 @@ document.getElementById("reportForm").addEventListener("submit", async (e) => {
 });
         // Submit Report
 
-        const res = await fetch("http://localhost:5000/api/reports",{
+        const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports",{
 
             method:"POST",
 
@@ -234,7 +234,7 @@ document.getElementById("reportForm").addEventListener("submit", async (e) => {
 
         // Add Reward Points
 
-        await fetch("http://localhost:5000/api/auth/addPoints",{
+        await fetch("https://ecofriendly-backend.onrender.com/api/auth/addPoints",{
 
             method:"POST",
 
@@ -297,7 +297,7 @@ async function loadCharts() {
 
     if (!statusCanvas || !locationCanvas) return;
 
-    const res = await fetch("http://localhost:5000/api/reports");
+    const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
     const reports = await res.json();
 
     const approved = reports.filter(r => r.status === "Approved").length;
@@ -387,7 +387,7 @@ if (downloadBtn) {
 
         const pdf = new jsPDF();
 
-        const res = await fetch("http://localhost:5000/api/reports");
+        const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
         const reports = await res.json();
 
@@ -430,7 +430,7 @@ if (certificateBtn) {
 
 certificateBtn.addEventListener("click", async () => {
 
-const res = await fetch("http://localhost:5000/api/reports");
+const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
 const reports = await res.json();
 
@@ -498,10 +498,10 @@ async function loadEcoScore() {
 
     const email = localStorage.getItem("email");
 
-    const userRes = await fetch(`http://localhost:5000/api/auth/profile/${email}`);
+    const userRes = await fetch(`https://ecofriendly-backend.onrender.com/api/auth/profile/${email}`);
     const user = await userRes.json();
 
-    const res = await fetch("http://localhost:5000/api/reports");
+    const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
     const reports = await res.json();
 
     const myReports = reports.filter(r => r.email === email);
@@ -638,7 +638,7 @@ async function loadNotifications() {
 
     try {
 
-        const res = await fetch("http://localhost:5000/api/reports");
+        const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
         const reports = await res.json();
 
@@ -721,7 +721,7 @@ if (reviewBtn) {
 
         try {
 
-            const res = await fetch("http://localhost:5000/api/reviews", {
+            const res = await fetch("https://ecofriendly-backend.onrender.com/api/reviews", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
