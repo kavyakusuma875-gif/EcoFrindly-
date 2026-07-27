@@ -16,29 +16,31 @@ card.style.transform="scale(1)";
 
 });
 
-function animateValue(id,start,end,duration){
+function animateValue(id, start, end, duration){
 
-let current=start;
+    const obj = document.getElementById(id);
 
-const increment=(end-start)/(duration/20);
+    if(!obj) return;
 
-const obj=document.getElementById(id);
+    let current = start;
 
-const timer=setInterval(()=>{
+    const increment = (end-start)/(duration/20);
 
-current+=increment;
+    const timer = setInterval(()=>{
 
-obj.innerText=Math.floor(current);
+        current += increment;
 
-if(current>=end){
+        obj.innerText = Math.floor(current);
 
-obj.innerText=end;
+        if(current >= end){
 
-clearInterval(timer);
+            obj.innerText = end;
 
-}
+            clearInterval(timer);
 
-},20);
+        }
+
+    },20);
 
 }
 
