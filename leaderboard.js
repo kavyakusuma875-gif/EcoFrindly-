@@ -1,43 +1,35 @@
-async function loadLeaderboard() {
+window.onload = async function () {
+
+    const tbody = document.querySelector("#leaderboardTable tbody");
 
     try {
 
-        console.log("Leaderboard JS Loaded");
-
         const res = await fetch("https://ecofriendly-backend.onrender.com/api/auth/leaderboard");
-
-        console.log("Response Status:", res.status);
 
         const users = await res.json();
 
-        console.log("Users:", users);
-
-        const tbody = document.querySelector("#leaderboardTable tbody");
-
-        console.log("Table Body:", tbody);
-
         tbody.innerHTML = "";
 
-        users.forEach((user, index) => {
+        for (let i = 0; i < users.length; i++) {
 
-            tbody.innerHTML += `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${user.name}</td>
-                    <td>${user.points}</td>
-                </tr>
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${i + 1}</td>
+                <td>${users[i].name}</td>
+                <td>${users[i].points}</td>
             `;
 
-        });
+            tbody.appendChild(row);
+
+        }
+
+    } catch (err) {
+
+        alert("Leaderboard Error");
+
+        console.log(err);
 
     }
 
-    catch (error) {
-
-        console.error(error);
-
-    }
-
-}
-
-loadLeaderboard();
+};
