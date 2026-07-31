@@ -37,7 +37,7 @@ function showToast(message,type="success"){
 
 async function loadAdminCharts() {
 
-    const res = await fetch("http://localhost:5000/api/reports");
+    const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
     const reports = await res.json();
 
     // =====================
@@ -48,9 +48,9 @@ async function loadAdminCharts() {
 
     reports.forEach(report => {
 
-        const month = new Date(report.createdAt).toLocaleString("default", {
-            month: "short"
-        });
+        const month = report.createdAt
+    ? new Date(report.createdAt).toLocaleString("default", { month: "short" })
+    : "Unknown";
 
         months[month] = (months[month] || 0) + 1;
 
@@ -94,8 +94,9 @@ async function loadAdminCharts() {
 
     reports.forEach(report => {
 
-        locations[report.location] =
-            (locations[report.location] || 0) + 1;
+        const location = report.location || "Unknown";
+
+        locations[location] = (locations[location] || 0) + 1;
 
     });
 
@@ -147,8 +148,9 @@ async function loadAdminCharts() {
 
     reports.forEach(report => {
 
-        waste[report.wasteType] =
-            (waste[report.wasteType] || 0) + 1;
+    const type = report.wasteType || "Unknown";
+
+    waste[type] = (waste[type] || 0) + 1;
 
     });
 
@@ -200,8 +202,9 @@ async function loadAdminCharts() {
 
     reports.forEach(report => {
 
-        users[report.email] =
-            (users[report.email] || 0) + 1;
+        const email = report.email || "Unknown";
+
+       users[email] = (users[email] || 0) + 1;
 
     });
 
@@ -280,7 +283,7 @@ function approveReport(id){
 
             try{
 
-                const res = await fetch(`http://localhost:5000/api/reports/approve/${id}`,{
+                const res = await fetch(`https://ecofriendly-backend.onrender.com/api/reports/approve/${id}`,{
                     method:"PUT"
                 });
 
@@ -319,7 +322,7 @@ function deleteReport(id){
 
             try{
 
-                const res = await fetch(`http://localhost:5000/api/reports/${id}`,{
+                const res = await fetch(`https://ecofriendly-backend.onrender.com/api/reports/${id}`,{
                     method:"DELETE"
                 });
 
@@ -347,7 +350,7 @@ function deleteReport(id){
 
 async function loadAdminReports(){
 
-    const res = await fetch("http://localhost:5000/api/reports");
+    const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
     const reports = await res.json();
     const searchText = document
@@ -393,7 +396,7 @@ const statusFilter = document
 
             ${
                 report.image
-                ? `<img src="/uploads/${report.image}" alt="Waste Image">`
+                ? `<img src="https://ecofriendly-backend.onrender.com/uploads/${report.image}" alt="Waste Image">`
                 : `<img src="https://via.placeholder.com/400x220?text=No+Image">`
             }
 
@@ -505,7 +508,7 @@ document
 
 document.getElementById("exportExcel").addEventListener("click", async ()=>{
 
-    const res = await fetch("http://localhost:5000/api/reports");
+    const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
     const reports = await res.json();
 
@@ -546,7 +549,7 @@ document.getElementById("exportPDF").addEventListener("click", async ()=>{
 
     const pdf = new jsPDF();
 
-    const res = await fetch("http://localhost:5000/api/reports");
+    const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
     const reports = await res.json();
 
@@ -582,7 +585,7 @@ document.getElementById("exportPDF").addEventListener("click", async ()=>{
 
 async function loadAdminStats() {
 
-    const res = await fetch("http://localhost:5000/api/admin/stats");
+    const res = await fetch("https://ecofriendly-backend.onrender.com/api/admin/stats");
 
     const data = await res.json();
 
@@ -596,7 +599,7 @@ async function loadAdminStats() {
 loadAdminStats();
 async function loadPrediction(){
 
-    const res = await fetch("http://localhost:5000/api/reports");
+    const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports");
 
     const reports = await res.json();
 
