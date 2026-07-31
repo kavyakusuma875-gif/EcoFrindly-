@@ -512,9 +512,9 @@ cursor:pointer;
 
     background:white;
 
-    padding:25px;
+    padding:20px;
 
-    border-radius:20px;
+    border-radius:15px;
 
     box-shadow:0 10px 25px rgba(0,0,0,.1);
 
@@ -525,6 +525,7 @@ cursor:pointer;
     justify-content:center;
 
     align-items:center;
+    overflow: hidden;
 
 }
 .chart-card canvas{
@@ -536,10 +537,11 @@ cursor:pointer;
 .chart-card h2{
     text-align:center;
     width:100%;
-    margin-bottom:20px;
-    font-size:28px;
+    margin-bottom:15px;
+    font-size:20px;
     font-weight:700;
     color:#14532d;
+    word-wrap: break-word;
 }
 .charts{
     display:grid;
