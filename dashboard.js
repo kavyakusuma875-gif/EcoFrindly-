@@ -88,7 +88,7 @@ async function loadReports(){
 
                 ${
                     report.image
-                    ? `<img src="/uploads/${report.image}" alt="Waste Image">`
+                    ? `<img src="https://ecofriendly-backend.onrender.com/uploads/${report.image}" alt="Waste Image">`
                     : `<img src="https://via.placeholder.com/400x220?text=No+Image">`
                 }
 
@@ -133,24 +133,33 @@ async function loadReports(){
 }
 async function deleteReport(id){
 
-    if(!confirm("Delete this report?")){
-        return;
-    }
+    if(!confirm("Delete this report?")) return;
 
     try{
 
-        await fetch(`https://ecofriendly-backend.onrender.com/api/reports/${id}`,{
-            method:"DELETE"
-        });
+        const res = await fetch(
+            `https://ecofriendly-backend.onrender.com/api/reports/${id}`,
+            {
+                method:"DELETE"
+            }
+        );
+
+        const data = await res.json();
+
+        if(!res.ok){
+            alert(data.message);
+            return;
+        }
 
         showNotification("🗑 Report Deleted Successfully");
 
-        await loadDashboard();
+        loadReports();
+        loadCharts();
 
-    }
-    catch(error){
+    }catch(error){
 
         console.log(error);
+        alert("Delete Failed");
 
     }
 
@@ -178,36 +187,29 @@ document.getElementById("reportForm").addEventListener("submit", async (e) => {
             formData.append("image", image);
         }
 
-        navigator.geolocation.getCurrentPosition(async (position) => {
+        await new Promise((resolve) => {
 
-    formData.append("latitude", position.coords.latitude);
-    formData.append("longitude", position.coords.longitude);
+    navigator.geolocation.getCurrentPosition(
 
-    const res = await fetch("https://ecofriendly-backend.onrender.com/api/reports", {
+        (position) => {
 
-        method: "POST",
+            formData.append("latitude", position.coords.latitude);
+            formData.append("longitude", position.coords.longitude);
 
-        body: formData
+            resolve();
 
-    });
+        },
 
-    const data = await res.json();
+        () => {
 
-    if (!res.ok) {
+            formData.append("latitude", "");
+            formData.append("longitude", "");
 
-        showNotification("❌ " + data.message);
+            resolve();
 
-        return;
+        }
 
-    }
-
-    showNotification("✅ Report Submitted Successfully");
-
-}, (error) => {
-
-    alert("Please allow location access.");
-
-    console.log(error);
+    );
 
 });
         // Submit Report
@@ -642,7 +644,11 @@ async function loadNotifications() {
 
         const reports = await res.json();
 
-        const myReports = reports.filter(r => r.email === email);
+        const myReports = reports
+    .filter(r => r.email === email)
+    .filter((report, index, self) =>
+        index === self.findIndex(item => item._id === report._id)
+    );
 
         let html = "";
 
